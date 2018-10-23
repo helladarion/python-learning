@@ -58,3 +58,8 @@ class Person:
             print(str(i) + ":", spell["name"], "(cost:", str(spell["cost"]) +")")
             i += 1
 
+    def show_status(self):
+        print(" HP                       MP                    ")
+        print(" ______________________   ______________________")
+        print("|████████████          | |████████████          |") 
+
