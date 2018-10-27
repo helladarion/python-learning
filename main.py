@@ -7,7 +7,9 @@ from classes.game import bcolor
 from classes.game import Persistence
 
 magic = [{"name": "Fire", "cost": 10, "dmg": 100},
-         {"name": "Thunder", "cost": 10, "dmg": 100},
+         {"name": "Thunder", "cost": 12, "dmg": 120},
+         {"name": "Earthquake", "cost": 15, "dmg": 150},
+         {"name": "Meteor", "cost": 14, "dmg": 140},
          {"name": "Blizzard", "cost": 10, "dmg": 100}]
 player = Person("Patric", 560, 65, 60, 34, magic)
 enemy = Person("Magus", 1100, 125, 45, 25, magic)
@@ -56,7 +58,8 @@ while running:
     player.take_damage(dmg)
     print("{} attacked you for {c.BOLD}{}{c.ENDC} points of damage.".format(enemy.name, dmg, c=bcolor))
     sleep(1.5)
-    Persistence.savedata(player.name, player.get_hp())
+
+    Persistence.savedata("magic.json", magic)
 
 
 

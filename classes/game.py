@@ -12,16 +12,21 @@ class bcolor:
     UNDERLINE   = '\033[4m'
 
 class Persistence:
-    def savedata(name, value):
-        if os.path.isfile("./save.json") and os.stat("./save.json").st_size != 0:
-            old_file = open("./save.json", "r+")
+    def savedata(file, data):
+        if os.path.isfile("assets/" + file) and os.stat("assets/" + file).st_size != 0:
+            old_file = open("assets/" + file, "r+")
             data = json.loads(old_file.read())
-            data["hp"] = value
-            data["name"] = name
         else:
-            old_file = open("./save.json","w+")
-            data = {"name": "Jack", "hp": value}
+            old_file = open("assets/" + file,"w+")
 
         old_file.seek(0)
         old_file.write(json.dumps(data))
+
+    def load(file):
+        if os.path.isfile("assets/" + file) and os.stat("assets/" + file).st_size != 0:
+            old_file = open("assets/" + file, "r+")
+            data = json.loads(old_file.read())
+        else:
+            data = []
+        return data
 
