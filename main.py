@@ -4,7 +4,7 @@ import os
 from time import sleep
 from classes.person import Person
 from classes.game import bcolor
-from classes.game import Save
+from classes.game import Persistence
 
 magic = [{"name": "Fire", "cost": 10, "dmg": 100},
          {"name": "Thunder", "cost": 10, "dmg": 100},
@@ -39,23 +39,24 @@ while running:
     if index == 0:
         dmg = player.generate_damage()
         enemy.take_damage(dmg)
-        print("You attacked {} for {} points of damage.".format(enemy.name, dmg))
+        print("You attacked {} for {c.BOLD}{}{c.ENDC} points of damage.".format(enemy.name, dmg, c=bcolor))
         sleep(0.5)
     elif index == 1:
         player.choose_magic()
         choice = input("Choose Spell:")
         spell_index = int(choice) - 1
         magic_damage = player.generate_magic_damage(spell_index)
+        player.reduce_mp(player.magic[spell_index]["cost"])
         enemy.take_damage(magic_damage)
-        print("You attacked {} with {} for {} points of damage.".format(enemy.name, player.magic[spell_index]["name"], magic_damage))
+        print("You attacked {} with {} for {c.BOLD}{}{c.ENDC} points of damage.".format(enemy.name, player.magic[spell_index]["name"], magic_damage, c=bcolor))
         sleep(1.0)
 
     print("{c.FAIL}{c.BOLD}ENEMY PHASE:{c.ENDC}".format(c=bcolor))
     dmg = enemy.generate_damage()
     player.take_damage(dmg)
-    print("{} attacked you for {} points of damage.".format(enemy.name, dmg))
+    print("{} attacked you for {c.BOLD}{}{c.ENDC} points of damage.".format(enemy.name, dmg, c=bcolor))
     sleep(1.5)
-    Save.savedata(player.name, player.get_hp())
+    Persistence.savedata(player.name, player.get_hp())
 
 
 

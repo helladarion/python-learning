@@ -11,7 +11,7 @@ class bcolor:
     BOLD        = '\033[1m'
     UNDERLINE   = '\033[4m'
 
-class Save:
+class Persistence:
     def savedata(name, value):
         if os.path.isfile("./save.json") and os.stat("./save.json").st_size != 0:
             old_file = open("./save.json", "r+")
