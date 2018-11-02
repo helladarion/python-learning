@@ -23,3 +23,5 @@ while running:
         enemy.take_damage(atk_dmg)
         print("You attacked for {} of damage".format(atk_dmg))
         print("Enemy HP is {}/{}".format(enemy.get_hp(),enemy.get_max_hp()))
+        
+        
