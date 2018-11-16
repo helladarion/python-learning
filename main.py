@@ -34,7 +34,7 @@ while running:
             print()
         except StopIteration:
             break
-    print("============================ rows " + rows + " Cols: " + cols + " Cols Left: " + str(cols_left))
+    print("=" * int(cols))
     player.choose_action()
     choice = input("Choose action:")
     index = int(choice) - 1
@@ -59,7 +59,7 @@ while running:
     print("{} attacked you for {c.BOLD}{}{c.ENDC} points of damage.".format(enemy.name, dmg, c=bcolor))
     sleep(1.5)
 
-    Persistence.savedata("magic.json", magic)
+    #Persistence.savedata("magic.json", magic)
 
 
 

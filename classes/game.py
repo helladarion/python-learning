@@ -13,6 +13,10 @@ class bcolor:
 
 class Persistence:
     def savedata(file, data):
+        # Creating directory for saving stuff
+        directory = os.path.dirname("assets/")
+        if not os.path.exists(directory):
+            os.makedirs("assets/")
         if os.path.isfile("assets/" + file) and os.stat("assets/" + file).st_size != 0:
             old_file = open("assets/" + file, "r+")
             data = json.loads(old_file.read())
