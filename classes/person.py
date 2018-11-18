@@ -2,16 +2,22 @@ import random
 from classes.game import bcolor
 
 class Person:
-    def __init__(self, name, hp, mp, atk, df, magic):
+    #def __init__(self, name, hp, mp, atk, df, magic):
+    def __init__(self, name, strength, constitution, skill)
        self.name = name
+       hp = strength * constitution
+       mp = skill * constitution
+       atk = strength * skill
+       df = constitution
        self.max_hp = hp
        self.hp = hp
        self.max_mp = mp
        self.mp = mp
        self.atk = atk
        self.df = df
-       self.magic = magic
-       self.actions = ["Attack", "Magic"]
+       #self.magic = magic
+       #self.actions = ["Attack", "Magic"]
+       self.actions = ["Attack"]
 
     def generate_damage(self):
         return random.randrange(self.atk -10, self.atk +10)
