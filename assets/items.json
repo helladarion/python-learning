@@ -1,45 +1,5 @@
-# List of items to be loaded in the game
-List of weapons
-{
-  weaponList:
-    {"name":"Unarmed","cost":0,"effect":1,"bonus":0},
-    {"name":"Acid","cost":10,"effect":1,"bonus":2},
-    {"name":"Dagger","cost":2,"effect":1,"bonus":1},
-    {"name":"Holy Water","cost":25,"effect":2,"bonus":-1},
-    {"name":"Stick","cost":2,"effect":1,"bonus":2},
-    {"name":"Crosbow","cost":35,"effect":2,"bonus":-2},
-    {"name":"Crosbow Arrow (10)","cost":1,"effect":0,"bonus":0},
-    {"name":"Club","cost":0,"effect":1,"bonus":2},
-    {"name":"Alchemist Fire","cost":20,"effect":1,"bonus":2},
-    {"name":"Sling","cost":0,"effect":1,"bonus":1},
-    {"name":"Sling Rocks(10)","cost":1,"effect":0,"bonus":0},
-    {"name":"Spear","cost":2,"effect":1,"bonus":2},
-    {"name":"Light Mace","cost":5,"effect":1,"bonus":2},
-    {"name":"Halberd","cost":10,"effect":2,"bonus":0},
-    {"name":"Short Bow","cost":30,"effect":1,"bonus":2},
-    {"name":"Long Bow","cost":75,"effect":2,"bonus":-2},
-    {"name":"Arrows(10)","cost":1,"effect":0,"bonus":0},
-    {"name":"Scimitar","cost":15,"effect":1,"bonus":2},
-    {"name":"Short Sword","cost":10,"effect":1,"bonus":2},
-    {"name":"Large Sword","cost":50,"effect":2,"bonus":2},
-    {"name":"Long Sword","cost":15,"effect":2,"bonus":-2},
-    {"name":"Sickle","cost":18,"effect":2,"bonus":-1},
-    {"name":"Battle Axe","cost":10,"effect":2,"bonus":-2},
-    {"name":"War Hammer","cost":12,"effect":2,"bonus":-2},
-    {"name":"Trident","cost":15,"effect":2,"bonus":-2},
-    {"name":"Whip","cost":1,"effect":1,"bonus":0},
-    {"name":"Bastard Sword","cost":35,"effect":2}
-}
-
-//List of Armors
-var armorList = [];
-armorList.push(new armor("No Armor", 0, 1, 0));
-armorList.push(new armor("Padded Armor", 5, 1, 1));
-armorList.push(new armor("Leather Armor", 10, 1,2));
-armorList.push(new armor("Buckler", 15, 0, 1));
-armorList.push(new armor("Scale Mail", 50, 2,-1));
-armorList.push(new armor("Chain Mail", 50, 2, 0));
-armorList.push(new armor("Medium Wooden Shield", 7, 0, 2));
-armorList.push(new armor("Splint Mail", 200, 2, 1));
-armorList.push(new armor("Full Plate", 1500, 3,3));
-armorList.push(new armor("Large Wooden Shield", 30, 0, 3));
+[
+  {"name":"Acid","cost":10,"effect":1,"bonus":2,"type": "item"},
+  {"name":"Holy Water","cost":25,"effect":2,"bonus":-1,"type": "item"},
+  {"name":"Alchemist Fire","cost":20,"effect":1,"bonus":2,"type": "item"}
+]

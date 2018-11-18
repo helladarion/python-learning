@@ -1,0 +1,7 @@
+[
+  {"dmg": 100, "name": "Fire", "cost": 10, "type": "magic"},
+  {"dmg": 120, "name": "Thunder", "cost": 12, "type": "magic"},
+  {"dmg": 150, "name": "Earthquake", "cost": 15, "type": "magic"},
+  {"dmg": 140, "name": "Meteor", "cost": 14, "type": "magic"},
+  {"dmg": 100, "name": "Blizzard", "cost": 10, "type": "magic"}
+]

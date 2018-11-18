@@ -1,9 +1,10 @@
 import random
 from classes.game import bcolor
+from classes.game import ascii_text
 
 class Person:
     #def __init__(self, name, hp, mp, atk, df, magic):
-    def __init__(self, name, strength, constitution, skill)
+    def __init__(self, name, strength, constitution, skill):
        self.name = name
        hp = strength * constitution
        mp = skill * constitution
@@ -16,8 +17,12 @@ class Person:
        self.atk = atk
        self.df = df
        #self.magic = magic
+       self.magic = []
        #self.actions = ["Attack", "Magic"]
-       self.actions = ["Attack"]
+       self.actions = ["Attack", "Inventory"]
+       self.items = []
+       self.armor = None
+       self.weapon = None
 
     def generate_damage(self):
         return random.randrange(self.atk -10, self.atk +10)
@@ -52,22 +57,56 @@ class Person:
     def get_spell_cost(self, index):
         return self.magic[index]["cost"]
 
+    def show_inventory(self):
+        i = 1
+        ascii_text.indent_ascii_text(ascii_text.center_text(),ascii_text.INVENTORY, "BLUE")
+        #print("{}{}{}".format(bcolor.YELLOW, ascii_text.INVENTORY, bcolor.ENDC))
+        if not self.items:
+            print("You have no items")
+            return False
+        else:
+            for item in self.items:
+                print("{}{}: {} type: {}".format((ascii_text.center_text() - 6)  * " ", i, item["name"], item["type"]))
+                #print("    {}. {} - ({})".format(i,item["name"], item["type"]))
+                i += 1
+            #print("    99. Exit")
+            print("{}{}: {}".format((ascii_text.center_text() - 6)  * " ", "99", "Exit"))
+            return True
+
+    def use_item(self,item_id):
+        if self.items[item_id]["type"] in ["armor", "weapon"]:
+            print("You equiped {} {}".format(self.items[item_id]["name"],self.items[item_id]["type"]))
+            if self.items[item_id]["type"] == "armor":
+                self.armor = self.items[item_id]
+                self.items.pop(item_id)
+            else:
+                self.weapon = self.items[item_id]
+                self.items.pop(item_id)
+        elif self.items[item_id]["type"] == "magic":
+            print("You open the old scroll and learn the {} spell".format(self.items[item_id]["name"]))
+            self.magic.append(self.items[item_id])
+            self.items.pop(item_id)
+        else:
+            print("You use {} in the enemy".format(self.items[item_id]["name"]))
+
     def choose_action(self):
         i = 1
-        print("{}ACTIONS{}".format(bcolor.WARNING, bcolor.ENDC))
-        for item in self.actions:
-            print("    {}: {}".format(str(i), item))
+        ascii_text.indent_ascii_text(ascii_text.center_text(),ascii_text.ACTION, "YELLOW")
+        for act in self.actions:
+            print("{}{}: {}".format((ascii_text.center_text() - 6)  * " ",i, act))
             i += 1
 
     def choose_magic(self):
         i = 1
-        print("{}MAGIC{}".format(bcolor.WARNING, bcolor.ENDC))
+        ascii_text.indent_ascii_text(ascii_text.center_text(),ascii_text.MAGIC, "PURPLE")
+        #print("{}{}{}".format(bcolor.YELLOW, ascii_text.MAGIC, bcolor.ENDC))
         for spell in self.magic:
-            print(str(i) + ":", spell["name"], "(cost:", str(spell["cost"]) +")")
+            print("{}{}: {} cost: {}".format((ascii_text.center_text() - 6)  * " ", i, spell["name"], spell["cost"]))
+            #print(str(i) + ":", spell["name"], "(cost:", str(spell["cost"]) +")")
             i += 1
 
     def show_status(self, bar_size):
-        name_spaces = " " * (bar_size + 29)
+        name_spaces = " " * (bar_size + 20)
         # hp bar configuration
         hp_bar_total = bar_size
         hp_bar_left = round(self.hp / self.max_hp * hp_bar_total)
@@ -86,10 +125,14 @@ class Person:
         mp_top = " " * (mp_bar_total - 4)
         mp_current = mp_bar + mp_bar_spaces
 
-        print("{}'s status:{}".format(self.name, name_spaces), end='')
+        print("{}'s status:{}       ".format(self.name, name_spaces), end='')
+        yield
+        print("weapon: {c.BOLD}{}{c.ENDC}{}        ".format(self.weapon["name"],name_spaces, c=bcolor), end='')
+        yield
+        print("armor: {c.BOLD}{}{c.ENDC}{}        ".format(self.armor["name"],name_spaces, c=bcolor), end='')
         yield
         print("{}{c.BOLD}HP{}MP{}{c.ENDC} ".format(hp_title_spaces, hp_top, mp_top, c=bcolor), end='')
         yield
-        print("{c.BOLD}{:04}/{:04}{c.ENDC} |{c.OKGREEN}{}{c.ENDC}| {c.BOLD}{:03}/{:03}{c.ENDC} |{c.OKBLUE}{}{c.ENDC}|".format(self.get_hp(), self.get_maxhp(), hp_current, self.get_mp(), self.get_maxmp(), mp_current, c=bcolor), end='')
+        print("{c.BOLD}{:04}/{:04}{c.ENDC} |{c.GREEN}{}{c.ENDC}| {c.BOLD}{:03}/{:03}{c.ENDC} |{c.BLUE}{}{c.ENDC}|".format(self.get_hp(), self.get_maxhp(), hp_current, self.get_mp(), self.get_maxmp(), mp_current, c=bcolor), end='')
         yield
 
