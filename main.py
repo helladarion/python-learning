@@ -6,33 +6,55 @@ from classes.person import Person
 from classes.game import bcolor
 from classes.game import Persistence
 from classes.game import ascii_text
+from classes.game import Enemy
 
 # Loading assets
-magic = Persistence.load("magic.json")
-weapons = Persistence.load("weapons.json")
-items = Persistence.load("items.json")
-armors = Persistence.load("armors.json")
+def load_assets():
+    magic = Persistence.load("magic.json")
+    weapons = Persistence.load("weapons.json")
+    items = Persistence.load("items.json")
+    armors = Persistence.load("armors.json")
+    return magic, weapons, items, armors
 
-player = Person("Patric", 4, 2, 4)
-enemy = Person("Magus", 9, 12, 6)
+player = Person("Patric", 4, 6, 5)
 
-enemy.weapon = weapons[1]
-enemy.armor = armors[1]
+POINTS = 15
+
+magic, weapons, items, armors = load_assets()
+
+def gen_enemy(points, luck, difficult):
+    ascii_text.indent_ascii_text(ascii_text.center_text(),ascii_text.AN_ENEMY_ATTACKS, "RED")
+    sleep(0.5)
+    enemy = Person.generate_random_person(Enemy.generate_random_name(), points)
+    get_random_gear(enemy,difficult)
+    enemy.luck = luck
+    return enemy
+
+def get_random_gear(entity, difficult):
+    weapon_id = random.randint(0,difficult)
+    armor_id = random.randint(0,difficult)
+    item_id = random.randint(0,difficult)
+    entity.weapon = weapons[weapon_id]
+    entity.armor = armors[armor_id]
+    entity.items.append(items[item_id])
+
+
 
 player.weapon = weapons[0]
 player.armor = armors[0]
-player.items.append(weapons[3])
+
+# Generating the first Enemy
+enemy = gen_enemy(POINTS, random.randint(0,3), Enemy.DIFFICULT)
 
 running = True
 
-ascii_text.indent_ascii_text(ascii_text.center_text(),ascii_text.AN_ENEMY_ATTACKS, "RED")
 sleep(2)
 
 def show_header_status():
     # Getting width of the tty screen
     rows, cols = os.popen('stty size', 'r').read().split()
     os.system('clear')
-    player_status, enemy_status = player.show_status(25), enemy.show_status(40)
+    player_status, enemy_status = player.show_status(25), enemy.show_status(30)
     cols_left = int(cols) - (25 + 40 + 9 ) - 80
     space_between_status = " " * cols_left
 
@@ -60,7 +82,7 @@ while running:
         show_header_status()
         if player.show_inventory():
             choice = int(input("Choose item: ")) - 1
-            if choice == 99:
+            if choice == 98:
                 continue
             else:
                 player.use_item(choice)
@@ -83,6 +105,29 @@ while running:
         else:
             print("Option not available")
             sleep(0.5)
+    # Check if victorious
+    if enemy.check_defeat():
+        player.add_kill()
+        if player.statistics["streaks"] % 5 == 0:
+            Enemy.DIFFICULT += 1
+            Enemy.LUCK += 3
+        ###############
+        # Drop chance #
+        ###############
+        if random.randint(0,100) < player.luck:
+            print("{c.BOLD}{c.PURPLE}The Enemy Dropped something{c.ENDC}".format(c=bcolor))
+            sleep(2)
+            equip = random.randint(1,3)
+            if equip == 1:
+                player.items.append(enemy.weapon)
+            elif equip == 2:
+                player.items.append(enemy.armor)
+            else:
+                player.items.extend(enemy.items)
+
+        del enemy
+        enemy = gen_enemy(POINTS, random.randint(0,Enemy.LUCK), Enemy.DIFFICULT)
+        continue
     # Enemy Phase
     show_header_status()
     ascii_text.indent_ascii_text(ascii_text.center_text(),ascii_text.ENEMY_PHASE, "RED")
@@ -91,16 +136,13 @@ while running:
     player.take_damage(dmg)
     print("{} attacked you for {c.BOLD}{}{c.ENDC} points of damage.".format(enemy.name, dmg, c=bcolor))
     sleep(2)
+    if player.check_defeat():
+        ascii_text.indent_ascii_text(ascii_text.center_text(),ascii_text.DEFEATED, "RED")
+        sleep(1)
+        player.revive()
+        player.hp = player.max_hp
+    if player.max_hp < 4:
+        print("Game Over")
+        break
 
-    #Persistence.savedata("magic.json", magic)
-
-
-
-
-    print("Saving the hp from player")
-    """ for i in range(21):
-        sys.stdout.write('\r')
-        sys.stdout.write("[%-20s] %d%%" % ('='*i, 5*i))
-        sys.stdout.flush()
-        sleep(0.25)"""
 

@@ -1,12 +1,13 @@
 [
-  {"name":"No Armor","cost": 0,"effect": 1,"bonus": 0,"type": "armor"},
-  {"name":"Padded Armor","cost": 5,"effect": 1,"bonus": 1,"type": "armor"},
-  {"name":"Leather Armor","cost": 10,"effect": 1,"bonus": 2,"type": "armor"},
-  {"name":"Buckler","cost": 15,"effect": 0,"bonus": 1,"type": "armor"},
-  {"name":"Scale Mail","cost": 50,"effect": 2,"bonus": -1,"type": "armor"},
-  {"name":"Chain Mail","cost": 50,"effect": 2,"bonus": 0,"type": "armor"},
-  {"name":"Medium Wooden Shield","cost": 7,"effect": 0,"bonus": 2,"type": "armor"},
-  {"name":"Splint Mail","cost": 200,"effect": 2,"bonus": 1,"type": "armor"},
-  {"name":"Full Plate","cost": 1500,"effect": 3,"bonus": 3,"type": "armor"},
-  {"name":"Large Wooden Shield","cost": 30,"effect": 0,"bonus": 3,"type": "armor"}
+  {"name":"No Armor","amount":1,"cost": 0,"effect": 0,"bonus": 0,"type": "armor"},
+  {"name":"Wooden Shield","amount":1,"cost": 5,"effect": 3,"bonus": 2,"type": "armor"},
+  {"name":"Padded Armor","amount":1,"cost": 5,"effect": 5,"bonus": 1,"type": "armor"},
+  {"name":"Leather Armor","amount":1,"cost": 10,"effect": 6,"bonus": 2,"type": "armor"},
+  {"name":"Buckler","amount":1,"cost": 15,"effect": 8,"bonus": 1,"type": "armor"},
+  {"name":"Scale Mail","amount":1,"cost": 50,"effect": 12,"bonus": -1,"type": "armor"},
+  {"name":"Chain Mail","amount":1,"cost": 50,"effect": 15,"bonus": 0,"type": "armor"},
+  {"name":"Medium Wooden Shield","amount":1,"cost": 7,"effect": 17,"bonus": 2,"type": "armor"},
+  {"name":"Splint Mail","amount":1,"cost": 200,"effect": 18,"bonus": 1,"type": "armor"},
+  {"name":"Full Plate","amount":1,"cost": 1500,"effect": 22,"bonus": 3,"type": "armor"},
+  {"name":"Large Wooden Shield","amount":1,"cost": 30,"effect": 24,"bonus": 3,"type": "armor"}
 ]

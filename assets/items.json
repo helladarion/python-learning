@@ -1,5 +1,7 @@
 [
-  {"name":"Acid","cost":10,"effect":1,"bonus":2,"type": "item"},
-  {"name":"Holy Water","cost":25,"effect":2,"bonus":-1,"type": "item"},
-  {"name":"Alchemist Fire","cost":20,"effect":1,"bonus":2,"type": "item"}
+  {"name":"Potion","amount":2,"effect":20,"use":"cure","type": "item"},
+  {"name":"Super Potion","amount":2,"effect":50,"use":"cure","type": "item"},
+  {"name":"Ultra Potion","amount":2,"effect":50,"use":"cure","type": "item"},
+  {"name":"Acid","amount":1,"effect":35,"use":"attack","type": "item"},
+  {"name":"Alchemist Fire","amount":1,"effect":100,"use":"attack","type": "item"}
 ]

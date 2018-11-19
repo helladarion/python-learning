@@ -1,5 +1,6 @@
 import os
 import simplejson as json
+import random
 
 class bcolor:
     PURPLE      = '\033[35m'
@@ -46,6 +47,13 @@ class ascii_text:
 /_/ |_/_//_/ /___/_//_/\__/_/_/_/\_, / /_/ |_\__/\__/\_,_/\__/_/\_\/___/
                                 /___/                                   
             """
+    DEFEATED = """\
+   ___      ___         __         __
+  / _ \___ / _/__ ___ _/ /____ ___/ /
+ / // / -_) _/ -_) _ `/ __/ -_) _  / 
+/____/\__/_/ \__/\_,_/\__/\__/\_,_/  
+                                                       `
+            """
     def center_text():
         rows, cols = os.popen('stty size', 'r').read().split()
         middle_value = int(cols) // 2
@@ -59,6 +67,15 @@ class ascii_text:
         for line in lines:
             print("{}{}{}{}".format(getattr(bcolor,colour),line_spaces * " ",line, bcolor.ENDC))
         return
+
+class Enemy:
+    DIFFICULT = 1
+    LUCK = 3
+    def generate_random_name():
+        names = Persistence.load("names.json")
+        name = random.choice(names)
+        return name
+
 
 class Persistence:
     def savedata(file, data):
