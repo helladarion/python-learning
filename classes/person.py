@@ -57,7 +57,13 @@ class Person:
         return random.randrange(atk_low, atk_high)
 
     def take_damage(self, dmg):
-        self.hp -= dmg
+        if self.df > dmg:
+        	dmg_taken = 0
+        else:
+        	dmg_taken = dmg - self.df
+          
+        self.hp -= dmg_taken
+
         if self.hp < 0:
-            self.hp = 0
+        	self.hp = 0
 
