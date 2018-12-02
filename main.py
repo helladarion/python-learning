@@ -72,7 +72,13 @@ while running:
     show_header_status()
     player.choose_action()
     choice = input("Choose action: ")
-    index = int(choice) - 1
+    try:
+        index = int(choice) - 1
+    except ValueError:
+        print("This is not a number")
+        sleep(1)
+        continue
+
     if index == 0:
         dmg = player.generate_damage()
         enemy.take_damage(dmg)
@@ -105,6 +111,9 @@ while running:
         else:
             print("Option not available")
             sleep(0.5)
+    else:
+        print("Not a valid option")
+        continue
     # Check if victorious
     if enemy.check_defeat():
         player.add_kill()
@@ -124,11 +133,16 @@ while running:
                 player.items.append(enemy.armor)
             else:
                 player.items.extend(enemy.items)
-
+        #####################################
+        # Remove Enemy and create a new one #
+        #####################################
         del enemy
         enemy = gen_enemy(POINTS, random.randint(0,Enemy.LUCK), Enemy.DIFFICULT)
         continue
-    # Enemy Phase
+    ###############
+    # Enemy Phase #
+    ###############
+
     show_header_status()
     ascii_text.indent_ascii_text(ascii_text.center_text(),ascii_text.ENEMY_PHASE, "RED")
     #print("{c.RED}{c.BOLD}{}{c.ENDC}".format(ascii_text.ENEMY_PHASE,c=bcolor))
@@ -138,11 +152,13 @@ while running:
     sleep(2)
     if player.check_defeat():
         ascii_text.indent_ascii_text(ascii_text.center_text(),ascii_text.DEFEATED, "RED")
+        enemy.add_kill()
         sleep(1)
         player.revive()
         player.hp = player.max_hp
     if player.max_hp < 4:
         print("Game Over")
+        running = False
         break
 
 

@@ -68,6 +68,9 @@ class Person:
         self.statistics["kills"] += 1
         self.statistics["streaks"] += 1
         self.luck += 5
+        self.hp += self.max_hp * 0.8
+        if self.hp > self.max_hp:
+            self.hp = self.max_hp
         if self.luck > 100:
             self.luck = 100
 
@@ -218,11 +221,21 @@ class Person:
         mp_top = " " * (mp_bar_total - 4)
         mp_current = mp_bar + mp_bar_spaces
 
-        print("{}'s k: {} KS: {} Lk: {}{} ".format(self.name, self.statistics["kills"], self.statistics["streaks"], self.luck, name_spaces), end='')
+        # Texts
+        combatents_line="{}'s k: {} KS: {} Lk: {}".format(self.name, self.statistics["kills"], self.statistics["streaks"], self.luck)
+        name_spaces = " " * (bar_size + len(combatents_line) - 9)
+        weapon_line="weapon: {c.BOLD}{}{c.ENDC} dmg: {}".format(self.weapon["name"], self.weapon["effect"], c=bcolor)
+        weapon_spaces = " " * (bar_size + len(combatents_line) - 5)
+        armor_line="armor: {c.BOLD}{}{c.ENDC} def: {}".format(self.armor["name"], self.armor["effect"], c=bcolor)
+
+        #print("{}'s k: {} KS: {} Lk: {}{} ".format(self.name, self.statistics["kills"], self.statistics["streaks"], self.luck, name_spaces), end='')
+        print("{}{}".format(combatents_line,name_spaces), end='')
         yield
-        print("weapon: {c.BOLD}{}{c.ENDC} dmg: {}{}     ".format(self.weapon["name"], self.weapon["effect"], name_spaces, c=bcolor), end='')
+        #print("weapon: {c.BOLD}{}{c.ENDC} dmg: {}{}    ".format(self.weapon["name"], self.weapon["effect"], name_spaces, c=bcolor), end='')
+        print("{}{}".format(weapon_line, weapon_spaces), end='')
         yield
-        print("armor: {c.BOLD}{}{c.ENDC} def: {}{}     ".format(self.armor["name"], self.armor["effect"], name_spaces, c=bcolor), end='')
+        #print("armor: {c.BOLD}{}{c.ENDC} def: {}{}    ".format(self.armor["name"], self.armor["effect"], name_spaces, c=bcolor), end='')
+        print("{}{}".format(armor_line,weapon_spaces), end='')
         yield
         print("{}{c.BOLD}HP{}MP{}{c.ENDC}   ".format(hp_title_spaces, hp_top, mp_top, c=bcolor), end='')
         yield
